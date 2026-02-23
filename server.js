@@ -74,14 +74,27 @@ app.post("/convert", upload.single("video"), (req, res) => {
         ])
         .format("gif")
         .on("end", () => {
-            res.download(outputPath, "output.gif", () => {
-                fs.unlinkSync(inputPath);
-                fs.unlinkSync(outputPath);
+
+            res.setHeader("Content-Type", "image/gif");
+            const stream = fs.createReadStream(outputPath);
+
+            stream.pipe(res);
+
+            stream.on("close", () => {
+                if (fs.existsSync(inputPath)) fs.unlinkSync(inputPath);
+                if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
             });
+
         })
         .on("error", (err) => {
             console.error(err);
-            res.status(500).send("Error");
+
+            if (fs.existsSync(inputPath)) fs.unlinkSync(inputPath);
+            if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
+
+            if (!res.headersSent) {
+                return res.status(500).send("Error");
+            }
         })
         .save(outputPath);
 });
