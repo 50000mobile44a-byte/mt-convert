@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MP4 → GIF Pro</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+    
+
+    <div class="container">
+
+        <!-- ===== Mode Tabs ===== -->
+        <div class="mode-tabs">
+            <button class="mode-btn active" data-mode="mp4gif">MP4 → GIF</button>
+            <button class="mode-btn" data-mode="imgconvert">แปลงรูปภาพ</button>
+            <button class="mode-btn" data-mode="giftools">GIF Tools</button>
+        </div>
+
+        <!-- ===== MP4 → GIF ===== -->
+        <div id="mp4gif" class="mode-section active">
+
+            <h2>MP4 → GIF Converter</h2>
+
+            <div class="drop-zone" id="dropZone">
+                Drag & Drop MP4 Here
+            </div>
+
+            <video id="videoPreview" controls style="display:none;"></video>
+
+            <div class="section">
+                <label>FPS: <span id="fpsValue">15</span></label>
+                <input type="range" id="fps" min="5" max="30" value="15">
+            </div>
+
+            <div class="section">
+                <label>Width (px)</label>
+                <input type="number" id="width" placeholder="480">
+            </div>
+
+            <div class="section">
+                <input type="checkbox" id="originalSize">
+                <label for="originalSize">Use Original Size</label>
+            </div>
+
+            <div class="section">
+                <label>Duration (seconds)</label>
+                <input type="number" id="duration" placeholder="5">
+            </div>
+
+            <div class="section">
+                <label>Quality</label>
+                <div class="quality-selector">
+
+                    <input type="radio" name="quality" id="qLow" value="low">
+                    <label for="qLow" class="quality-btn">
+                        <span>Low</span>
+                        <small>Small File</small>
+                    </label>
+
+                    <input type="radio" name="quality" id="qMedium" value="medium" checked>
+                    <label for="qMedium" class="quality-btn">
+                        <span>Medium</span>
+                        <small>Balanced</small>
+                    </label>
+
+                    <input type="radio" name="quality" id="qHigh" value="high">
+                    <label for="qHigh" class="quality-btn">
+                        <span>High</span>
+                        <small>Sharp</small>
+                    </label>
+
+                </div>
+            </div>
+
+            <button onclick="upload()">Convert to GIF</button>
+
+            <div class="progress">
+                <div class="progress-text" id="progressText"></div>
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+        </div>
+
+        <!-- ===== Image Convert ===== -->
+        <div id="imgconvert" class="mode-section">
+
+            <h2>Image Converter</h2>
+
+            <div class="section">
+                <label class="upload-label">เลือกรูปภาพ</label>
+
+                <div class="image-upload" id="imageUploadBox">
+                    <input type="file" id="imageInput" accept="image/*" hidden>
+
+                    <div class="upload-content">
+                        <div class="upload-icon">🖼️</div>
+                        <div class="upload-text">
+                            <strong>คลิกเพื่อเลือกไฟล์</strong>
+                            <small>หรือ ลากไฟล์มาวางที่นี่</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <img id="imagePreview" style="display:none;" />
+
+            <div class="custom-select" id="formatSelect">
+                <div class="select-selected">PNG</div>
+                <div class="select-items select-hide">
+                    <div data-value="image/png">PNG</div>
+                    <div data-value="image/jpeg">JPG</div>
+                    <div data-value="image/webp">WEBP</div>
+                </div>
+            </div>
+
+            <input type="hidden" id="convertFormat" value="image/png">
+
+            <div class="section">
+                <label>Quality (JPG/WEBP)</label>
+                <input type="range" id="imgQuality" min="0.1" max="1" step="0.1" value="0.9">
+                <div class="section">
+                    <input type="checkbox" id="imgOriginalSize" checked>
+                    <label>Use Original Size</label>
+                </div>
+
+                <div class="section resize-box">
+                    <div class="resize-input">
+                        <label>Width (px)</label>
+                        <input type="number" id="imgWidth" placeholder="Auto">
+                    </div>
+
+                    <div class="resize-input">
+                        <label>Height (px)</label>
+                        <input type="number" id="imgHeight" placeholder="Auto">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="convertImage()">Convert Image</button>
+
+        </div>
+
+        <!-- ===== GIF Tools ===== -->
+        <div id="giftools" class="mode-section">
+            <h2>GIF Tools</h2>
+            <p>Coming Soon...</p>
+        </div>
+
+        <!-- ===== Footer Signature ===== -->
+        <div class="footer">
+            <div class="signature">
+                © 2026 mt.convert — digital image lab
+            </div>
+
+            <a href="https://discord.gg/8Zz5PBAehQ" target="_blank" class="discord-btn">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Discord">
+            </a>
+        </div>
+
+    </div>
+
+    <!-- External JS -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
