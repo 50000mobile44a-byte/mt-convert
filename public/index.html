@@ -6,20 +6,33 @@
     <title>MP4 → GIF Pro</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 
 <body>
-    
+
 
     <div class="container">
 
         <!-- ===== Mode Tabs ===== -->
         <div class="mode-tabs">
-            <button class="mode-btn active" data-mode="mp4gif">MP4 → GIF</button>
-            <button class="mode-btn" data-mode="imgconvert">แปลงรูปภาพ</button>
-            <button class="mode-btn" data-mode="giftools">GIF Tools</button>
+            <button class="mode-btn active" data-mode="mp4gif">
+                <i class="fa-solid fa-video"></i>
+                MP4 → GIF
+            </button>
+
+            <button class="mode-btn" data-mode="imgconvert">
+                <i class="fa-solid fa-image"></i>
+                แปลงรูปภาพ
+            </button>
+
+            <button class="mode-btn" data-mode="giftools">
+                <i class="fa-brands fa-youtube"></i>
+                YouTube
+            </button>
+            
         </div>
 
         <!-- ===== MP4 → GIF ===== -->
@@ -147,9 +160,65 @@
         </div>
 
         <!-- ===== GIF Tools ===== -->
-        <div id="giftools" class="mode-section">
+        <!-- <div id="giftools" class="mode-section">
             <h2>GIF Tools</h2>
             <p>Coming Soon...</p>
+        </div> -->
+
+        <!-- ===== YouTube Downloader ===== -->
+        <div id="giftools" class="mode-section">
+
+            <h2>YouTube Downloader</h2>
+
+            <div class="section">
+                <label>YouTube URL</label>
+                <input type="text" id="ytUrl" placeholder="https://youtube.com/watch?v=...">
+            </div>
+
+            <div class="section">
+                <label>Download Type</label>
+                <div class="quality-selector">
+
+                    <input type="radio" name="ytType" id="ytMp4" value="mp4" checked>
+                    <label for="ytMp4" class="quality-btn">
+                        <span>MP4</span>
+                        <small>Video</small>
+                    </label>
+
+                    <input type="radio" name="ytType" id="ytMp3" value="mp3">
+                    <label for="ytMp3" class="quality-btn">
+                        <span>MP3</span>
+                        <small>Audio</small>
+                    </label>
+
+                </div>
+            </div>
+
+            <!-- <div class="section">
+                <label>Quality</label>
+                <select id="ytQuality">
+                    <option value="highest">Highest</option>
+                    <option value="highestaudio">High (Audio)</option>
+                    <option value="lowest">Lowest</option>
+                </select>
+                <select id="ytQuality"></select>
+            </div> -->
+
+            <div class="section">
+                <label>Quality</label>
+
+                <div class="custom-select" id="ytSelect">
+                    <div class="select-selected">1080p</div>
+                    <div class="select-items select-hide"></div>
+                </div>
+            </div>
+
+            <button id="ytDownloadBtn" type="button" onclick="downloadYoutube()">
+                Download
+            </button>
+
+
+
         </div>
 
         <!-- ===== Footer Signature ===== -->
