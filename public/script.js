@@ -250,3 +250,152 @@ document.addEventListener("click", e => {
         items.classList.add("select-hide");
     }
 });
+
+
+
+
+function downloadYoutube() {
+
+    const btn = document.querySelector("#giftools button");
+    const urlInput = document.getElementById("ytUrl");
+    const select = document.getElementById("ytSelect");
+    const selected = select.querySelector(".select-selected");
+
+    if (btn.disabled) return;
+
+    btn.classList.add("loading");
+    btn.disabled = true;
+
+    const url = urlInput.value.trim();
+    if (!url) {
+        alert("Enter YouTube URL");
+        stopLoading();
+        return;
+    }
+
+    const type = document.querySelector('input[name="ytType"]:checked').value;
+    const quality = selected?.dataset?.value || "";
+
+    const formData = new FormData();
+    formData.append("url", url);
+    formData.append("type", type);
+    formData.append("quality", quality);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/youtube", true);
+    xhr.responseType = "blob";
+    xhr.timeout = 0; // 🔥 ปิด timeout
+
+    xhr.onreadystatechange = function () {
+
+        if (xhr.readyState !== 4) return;
+
+        if (xhr.status !== 200) {
+            alert("Download failed");
+            stopLoading();
+            return;
+        }
+
+        const blob = xhr.response;
+
+        if (!blob || blob.size === 0) {
+            alert("File empty");
+            stopLoading();
+            return;
+        }
+
+        const downloadUrl = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = downloadUrl;
+        a.download = type === "mp3"
+            ? `audio_${Date.now()}.mp3`
+            : `video_${Date.now()}.mp4`;
+
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(downloadUrl);
+        stopLoading();
+    };
+
+    // 🔥 เอา alert network error ออก
+    xhr.onerror = function () {
+        console.warn("XHR error but ignored");
+        stopLoading();
+    };
+
+    xhr.send(formData);
+
+    function stopLoading() {
+        btn.classList.remove("loading");
+        btn.disabled = false;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const select = document.getElementById("ytSelect");
+    const selected = select.querySelector(".select-selected");
+    const items = select.querySelector(".select-items");
+    const typeRadios = document.querySelectorAll('input[name="ytType"]');
+
+    function updateOptions() {
+
+        const type = document.querySelector('input[name="ytType"]:checked').value;
+        items.innerHTML = "";
+
+        let options = [];
+
+        if (type === "mp4") {
+            options = [
+                { label: "1080p", value: "bestvideo[height<=1080]+bestaudio" },
+                { label: "720p", value: "bestvideo[height<=720]+bestaudio" },
+                { label: "480p", value: "bestvideo[height<=480]+bestaudio" },
+                { label: "Lowest", value: "worst" }
+            ];
+        } else {
+            options = [
+                { label: "320 kbps", value: "320" },
+                { label: "192 kbps", value: "192" },
+                { label: "128 kbps", value: "128" },
+                { label: "Lowest", value: "lowest" }
+            ];
+        }
+
+        options.forEach(opt => {
+            const div = document.createElement("div");
+            div.textContent = opt.label;
+            div.dataset.value = opt.value;
+
+            div.onclick = function () {
+                selected.textContent = opt.label;
+                selected.dataset.value = opt.value;
+                items.classList.add("select-hide");
+            };
+
+            items.appendChild(div);
+        });
+
+        selected.textContent = options[0].label;
+        selected.dataset.value = options[0].value;
+    }
+
+    selected.addEventListener("click", function () {
+        items.classList.toggle("select-hide");
+    });
+
+    typeRadios.forEach(radio => {
+        radio.addEventListener("change", updateOptions);
+    });
+
+    updateOptions();
+
+    // ปิดเมื่อคลิกนอก
+    document.addEventListener("click", function (e) {
+        if (!select.contains(e.target)) {
+            items.classList.add("select-hide");
+        }
+    });
+});
