@@ -510,3 +510,232 @@
     transform: scale(1.1);
     box-shadow: 0 12px 25px rgba(0,0,0,0.35);
 }
+
+
+#giftools {
+    color: #eaf6f6;
+}
+
+#giftools h2 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+#giftools .section {
+    margin-bottom: 20px;
+}
+
+#giftools label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+#giftools input[type="text"],
+#giftools select {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    outline: none;
+    transition: 0.3s;
+}
+
+#giftools input[type="text"]:focus,
+#giftools select:focus {
+    border-color: #1dd1a1;
+    box-shadow: 0 0 0 2px rgba(29,209,161,0.2);
+}
+
+/* Radio Buttons */
+.quality-selector {
+    display: flex;
+    gap: 15px;
+}
+
+.quality-selector input[type="radio"] {
+    display: none;
+}
+
+.quality-btn {
+    flex: 1;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+
+.quality-btn span {
+    display: block;
+    font-weight: 600;
+}
+
+.quality-btn small {
+    opacity: 0.7;
+}
+
+/* selected */
+input[type="radio"]:checked + .quality-btn {
+    background: linear-gradient(135deg, #1dd1a1, #00c6ff);
+    color: #000;
+    border: none;
+    box-shadow: 0 5px 20px rgba(0, 255, 200, 0.3);
+}
+
+/* Download Button */
+#ytDownloadBtn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    background: linear-gradient(135deg, #00eaff, #00ff99);
+    color: #000;
+    transition: 0.3s;
+}
+
+#ytDownloadBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 255, 200, 0.4);
+}
+
+/* Loading State */
+#ytDownloadBtn.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+#giftools button {
+    position: relative;
+    transition: 0.3s;
+}
+
+#giftools button.loading {
+    pointer-events: none;
+    opacity: 0.8;
+    color: transparent;
+}
+
+#giftools button.loading::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top: 3px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.custom-select {
+    position: relative;
+    width: 100%;
+}
+
+.select-selected {
+    padding: 14px 18px;
+    border-radius: 18px;
+    background: linear-gradient(145deg,#0f3d3f,#092b2c);
+    border: 1px solid #18e0c1;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.select-selected::after {
+    content: "▾";
+    float: right;
+    color: #18e0c1;
+}
+
+.select-items {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    right: 0;
+    background: linear-gradient(145deg,#0f3d3f,#092b2c);
+    border-radius: 18px;
+    padding: 8px 0;
+    z-index: 99;
+    animation: fadeIn 0.2s ease;
+}
+
+.select-items div {
+    padding: 12px 18px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.select-items div:hover {
+    background: rgba(24,224,193,0.2);
+    border-radius: 12px;
+}
+
+.select-hide {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+.mode-btn i {
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.mode-btn:hover i {
+    transform: scale(1.2);
+}
+
+.mode-btn i {
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.mode-btn:hover i {
+    transform: scale(1.2);
+}
+/* MP4 */
+.mode-btn[data-mode="mp4gif"] i {
+    color: #3b82f6;   /* น้ำเงิน */
+}
+
+/* รูปภาพ */
+.mode-btn[data-mode="imgconvert"] i {
+    color: #10b981;   /* เขียว */
+}
+
+/* YouTube */
+.mode-btn[data-mode="giftools"] i {
+    color: #ff0000;   /* แดง YouTube */
+}
+
+.mode-btn.active i {
+    filter: drop-shadow(0 0 6px currentColor);
+}
+.mode-btn:hover i {
+    filter: brightness(1.3);
+    transform: scale(1.15);
+    transition: 0.2s ease;
+}
